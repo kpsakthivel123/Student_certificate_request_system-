@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CertiFlow Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div>
+        <h2>🎓 CertiFlow</h2>
+        <span>Student Certificate Request System</span>
+    </div>
+
+    <div>
+        <span id="roleLabel"></span>
+
+        <button
+            class="actionBtn"
+            onclick="logout()">
+            🚪 Logout
+        </button>
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>Certificate Request Dashboard</h1>
+
+        <p>
+            Request, track and manage your certificates easily.
+        </p>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <div class="statCard">
+            <h3>Total</h3>
+            <strong id="totalCount">0</strong>
+        </div>
+
+        <div class="statCard">
+            <h3>Pending</h3>
+            <strong id="pendingCount">0</strong>
+        </div>
+
+        <div class="statCard">
+            <h3>Approved</h3>
+            <strong id="approvedCount">0</strong>
+        </div>
+
+        <div class="statCard">
+            <h3>Rejected</h3>
+            <strong id="rejectedCount">0</strong>
+        </div>
+
+    </section>
+
+
+    <!-- STUDENT AREA -->
+
+    <section id="studentArea">
+
+        <div class="card">
+
+            <h2>📝 New Certificate Request</h2>
+
+            <form id="requestForm">
+
+                <div class="formGrid">
+
+                    <label>
+                        Student Name
+                        <input
+                            id="name"
+                            type="text"
+                            required>
+                    </label>
+
+                    <label>
+                        Register Number
+                        <input
+                            id="regno"
+                            type="text"
+                            required>
+                    </label>
+
+                    <label>
+                        Department
+                        <input
+                            id="dept"
+                            type="text"
+                            required>
+                    </label>
+
+                    <label>
+                        Year
+                        <select id="year" required>
+                            <option value="">Select Year</option>
+                            <option>1st Year</option>
+                            <option>2nd Year</option>
+                            <option>3rd Year</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Certificate Type
+
+                        <select id="type" required>
+
+                            <option value="">
+                                Select Certificate
+                            </option>
+
+                            <option>
+                                Bonafide Certificate
+                            </option>
+
+                            <option>
+                                Transfer Certificate
+                            </option>
+
+                            <option>
+                                Course Completion Certificate
+                            </option>
+
+                            <option>
+                                Conduct Certificate
+                            </option>
+
+                            <option>
+                                Character Certificate
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                    <label>
+                        Purpose
+                        <input
+                            id="purpose"
+                            type="text"
+                            required>
+                    </label>
+
+                </div>
+
+
+                <label>
+                    Additional Notes
+
+                    <textarea
+                        id="notes"
+                        rows="4"
+                        placeholder="Enter additional information">
+                    </textarea>
+
+                </label>
+
+
+                <button
+                    class="primary"
+                    type="submit">
+
+                    📤 Submit Request
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📌 Student Guide</h3>
+
+            <p>
+                Submit your certificate request and track
+                its status below.
+            </p>
+
+            <p>
+                Approved certificates can be downloaded.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- REQUESTS -->
+
+    <section class="card">
+
+        <div class="sectionHeader">
+
+            <h2>📋 Certificate Requests</h2>
+
+            <div>
+
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Search requests...">
+
+                <select id="filter">
+
+                    <option value="All">
+                        All
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Approved">
+                        Approved
+                    </option>
+
+                    <option value="Rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="tableWrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Certificate</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="requestBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMIN AREA -->
+
+    <section id="adminArea">
+
+        <div class="card">
+
+            <h2>⚙️ Admin Controls</h2>
+
+            <button
+                class="actionBtn"
+                onclick="seed()">
+
+                ➕ Add Demo Request
+
+            </button>
+
+
+            <button
+                class="actionBtn"
+                onclick="clearAll()">
+
+                🗑️ Clear All Data
+
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div
+    id="modal"
+    class="modal">
+
+    <div class="modalBox">
+
+        <button
+            class="closeBtn"
+            onclick="closeModal()">
+
+            ✖
+
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 CertiFlow -
+    Student Certificate Request System
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

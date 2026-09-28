@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>CertiFlow Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="loginBody">
+
+
+<div class="loginWrap">
+
+
+    <!-- BRAND -->
+
+    <div class="loginBrand">
+
+        <div class="logo">
+            🎓
+        </div>
+
+        <h1>
+            CertiFlow
+        </h1>
+
+        <p>
+            Student Certificate Request System
+        </p>
+
+    </div>
+
+
+    <!-- ROLE TABS -->
+
+    <div class="roleTabs">
+
+        <button
+            id="studentTab"
+            class="active"
+            type="button"
+            onclick="setRole('student')">
+
+            👨‍🎓 Student
+
+        </button>
+
+
+        <button
+            id="adminTab"
+            type="button"
+            onclick="setRole('admin')">
+
+            🛡️ Admin
+
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN FORM -->
+
+    <form
+        id="loginForm"
+        class="loginCard">
+
+        <h2 id="loginTitle">
+            Student Login
+        </h2>
+
+
+        <p id="loginSub">
+            Login to request and track certificates
+        </p>
+
+
+        <label>
+
+            Username
+
+            <input
+                id="username"
+                type="text"
+                required
+                placeholder="Enter username">
+
+        </label>
+
+
+        <label>
+
+            Password
+
+            <input
+                id="password"
+                type="password"
+                required
+                placeholder="Enter password">
+
+        </label>
+
+
+        <button
+            class="primary"
+            type="submit">
+
+            🔐 Login
+
+        </button>
+
+
+        <div
+            class="demo"
+            id="demo">
+
+            Demo:
+            <b>student</b> /
+            <b>student123</b>
+
+        </div>
+
+    </form>
+
+
+    <!-- DARK MODE -->
+
+    <button
+        class="theme"
+        type="button"
+        onclick="toggleTheme()">
+
+        🌙 Dark Mode
+
+    </button>
+
+
+</div>
+
+
+<script>
+
+// ===============================
+// ROLE
+// ===============================
+
+let role = "student";
+
+
+function setRole(selectedRole) {
+
+    role = selectedRole;
+
+
+    document
+        .getElementById("studentTab")
+        .classList
+        .toggle(
+            "active",
+            role === "student"
+        );
+
+
+    document
+        .getElementById("adminTab")
+        .classList
+        .toggle(
+            "active",
+            role === "admin"
+        );
+
+
+    document
+        .getElementById("loginTitle")
+        .textContent =
+            role === "student"
+            ? "Student Login"
+            : "Admin Login";
+
+
+    document
+        .getElementById("loginSub")
+        .textContent =
+            role === "student"
+            ? "Login to request and track certificates"
+            : "Login to manage student certificate requests";
+
+
+    document
+        .getElementById("demo")
+        .innerHTML =
+            role === "student"
+            ? 'Demo: <b>student</b> / <b>student123</b>'
+            : 'Demo: <b>admin</b> / <b>admin123</b>';
+
+}
+
+
+// ===============================
+// LOGIN
+// ===============================
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        function(e) {
+
+            e.preventDefault();
+
+
+            const username =
+                document
+                .getElementById("username")
+                .value
+                .trim();
+
+
+            const password =
+                document
+                .getElementById("password")
+                .value;
+
+
+            // STUDENT LOGIN
+
+            if (
+                role === "student" &&
+                username === "student" &&
+                password === "student123"
+            ) {
+
+                localStorage.setItem(
+                    "role",
+                    "student"
+                );
+
+                location.href =
+                    "dashboard.html";
+
+                return;
+            }
+
+
+            // ADMIN LOGIN
+
+            if (
+                role === "admin" &&
+                username === "admin" &&
+                password === "admin123"
+            ) {
+
+                localStorage.setItem(
+                    "role",
+                    "admin"
+                );
+
+                location.href =
+                    "dashboard.html";
+
+                return;
+            }
+
+
+            alert(
+                "Invalid username or password"
+            );
+
+        }
+    );
+
+
+// ===============================
+// DARK MODE
+// ===============================
+
+function toggleTheme() {
+
+    document.body.classList.toggle("dark");
+
+
+    localStorage.setItem(
+        "dark",
+        document.body.classList.contains("dark")
+    );
+
+}
+
+
+if (
+    localStorage.getItem("dark") === "true"
+) {
+
+    document.body.classList.add("dark");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
